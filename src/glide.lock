@@ -1,0 +1,26 @@
+hash: 31526dc0cabb22f1265516273831754ab43ab01821dc4c3d4153d0dab91b4b2b
+updated: 2018-03-11T13:11:18.812628+05:00
+imports:
+- name: github.com/davecgh/go-spew
+  version: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
+  subpackages:
+  - spew
+- name: github.com/go-pg/pg
+  version: 24dfe0572921e42ffe1035f7afbd40f9d97cb8c8
+  subpackages:
+  - internal
+  - internal/parser
+  - internal/pool
+  - orm
+  - types
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
+- name: github.com/stretchr/testify
+  version: b89eecf5ca5db6d3ba60b237ffe3df7bafb7662f
+  subpackages:
+  - assert
+testImports: []
