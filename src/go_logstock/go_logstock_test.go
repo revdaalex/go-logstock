@@ -6,10 +6,13 @@ import (
 	"github.com/go-pg/pg"
 )
 
-type User struct {
-	ID   int64
-	Name string
-}
+const userTableSQL = `
+CREATE TABLE public.user (
+id int, 
+value text
+);
+INSERT INTO public.user VALUES (1, 'test')
+`
 
 func TestConnect(t *testing.T) {
 	db, err := DBConn(pgOptions())

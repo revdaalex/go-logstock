@@ -2,24 +2,17 @@ package go_logstock
 
 import (
 	"github.com/go-pg/pg"
+	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
 	"strings"
-	"github.com/stretchr/testify/assert"
 )
 
-const userTableSQL = `
-CREATE TABLE public.user (
-id int, 
-value text
-);
-INSERT INTO public.user VALUES (1, 'test')
-`
-
 var (
-	arrayQuery []string
-	testQuery  string
-	logQuery   string
+	testArray []string
+	testQuery string
+	logQuery  string
+	logArray  []string
 )
 
 func DBConn(opt *pg.Options) (*pg.DB, error) {
@@ -31,7 +24,7 @@ func DBConn(opt *pg.Options) (*pg.DB, error) {
 		if err != nil {
 			panic(err)
 		}
-		arrayQuery = append(arrayQuery, query)
+		testArray = append(testArray, query)
 	})
 	return db, nil
 }
@@ -47,9 +40,12 @@ func pgOptions() *pg.Options {
 func CheckLog(t TestingT, logName string) {
 	createDir()
 	readLog(logName)
-	testQuery = strings.Join(arrayQuery, "")
+	testQuery = strings.Join(testArray, "")
 
-	if !assert.Equal(t, logQuery, testQuery) {
+	logArray = strings.Split(logQuery, " ")
+	testArray = strings.Split(testQuery, " ")
+
+	if !assert.Equal(t, logArray, testArray) {
 		t.FailNow()
 	}
 }
@@ -68,7 +64,7 @@ func createLog(logName string) {
 	}
 	defer file.Close()
 
-	for _, f := range arrayQuery {
+	for _, f := range testArray {
 		file.WriteString(f)
 	}
 }
