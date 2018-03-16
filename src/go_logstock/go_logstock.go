@@ -60,7 +60,7 @@ func createLog(logName string) {
 
 func readLog(logName string) {
 	bs, err := ioutil.ReadFile(os.Getenv("GOPATH") + "/log/" + logName)
-	if err != nil {
+	if err != nil && os.IsNotExist(err) {
 		createLog(logName)
 		readLog(logName)
 	}
