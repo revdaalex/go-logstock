@@ -2,7 +2,6 @@ package go_logstock
 
 import (
 	"testing"
-	_"fmt"
 	"github.com/go-pg/pg"
 )
 
@@ -21,7 +20,6 @@ func TestConnect(t *testing.T) {
 	}
 	Create(db)
 	defer db.Close()
-	//fmt.Println(TestQuery)
 	CheckLog(t, "test.log")
 }
 
@@ -31,5 +29,13 @@ func Create(db *pg.DB) {
 	_, err := db.Query(pg.Scan(&test), "SELECT value FROM public.user WHERE id=?", 1)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func pgOptions() *pg.Options {
+	return &pg.Options{
+		User:     "postgres",
+		Database: "test",
+		Password: "8777738",
 	}
 }

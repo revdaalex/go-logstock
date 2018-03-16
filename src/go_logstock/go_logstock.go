@@ -9,9 +9,8 @@ import (
 )
 
 var (
-	testArray []string
 	testQuery string
-	logQuery  string
+	testArray []string
 	logArray  []string
 )
 
@@ -29,21 +28,11 @@ func DBConn(opt *pg.Options) (*pg.DB, error) {
 	return db, nil
 }
 
-func pgOptions() *pg.Options {
-	return &pg.Options{
-		User:     "postgres",
-		Database: "test",
-		Password: "8777738",
-	}
-}
-
 func CheckLog(t TestingT, logName string) {
 	createDir()
 	readLog(logName)
 	testQuery = strings.Join(testArray, "")
-
-	logArray = strings.Split(logQuery, " ")
-	testArray = strings.Split(testQuery, " ")
+	testArray = strings.Split(testQuery, "\n")
 
 	if !assert.Equal(t, logArray, testArray) {
 		t.FailNow()
@@ -51,7 +40,7 @@ func CheckLog(t TestingT, logName string) {
 }
 
 func createDir() {
-	err := os.Mkdir(os.Getenv("GOPATH")+"/log", os.ModePerm)
+	err := os.Mkdir(os.Getenv("GOPATH")+"/log", 0755)
 	if err != nil {
 		return
 	}
@@ -75,5 +64,7 @@ func readLog(logName string) {
 		createLog(logName)
 		readLog(logName)
 	}
-	logQuery = string(bs)
+	if len(logArray) == 0 {
+		logArray = strings.Split(string(bs), "\n")
+	}
 }
