@@ -1,0 +1,15 @@
+language: go
+
+go:
+  - 1.8
+  - 1.9
+
+matrix:
+  fast_finish: true
+
+install:
+  - go get github.com/go-pg/pg
+  - go get -v github.com/stretchr/testify/assert
+
+script:
+  - go test -v -race -cover ./...
