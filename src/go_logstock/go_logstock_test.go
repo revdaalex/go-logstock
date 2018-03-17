@@ -36,6 +36,5 @@ func pgOptions() *pg.Options {
 	return &pg.Options{
 		User:     "postgres",
 		Database: "test",
-		Password: "8777738",
 	}
 }
