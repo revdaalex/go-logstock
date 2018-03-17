@@ -4,12 +4,18 @@ go:
   - 1.8
   - 1.9
 
+services:
+  - postgresql
+
 matrix:
   fast_finish: true
 
 install:
   - go get github.com/go-pg/pg
   - go get -v github.com/stretchr/testify/assert
+
+before_script:
+  - psql -c 'create database test;' -U postgres -P 8777738
 
 script:
   - go test -v -race -cover ./...
