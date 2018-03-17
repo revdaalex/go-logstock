@@ -8,14 +8,14 @@ Tool to check duplicate query to PostgreSQL database.
 
 Import:
 
-```
+```go
 . "github.com/revdaalex/go-logstock/src/go_logstock"
 ```
 go get github.com/revdaalex/go-logstock
 
 Use in test:
 
-```
+```go
 func TestQuery(t *testing.T)  {
 	db, err := DBConn(pgOptions)
 	if err != nil {
