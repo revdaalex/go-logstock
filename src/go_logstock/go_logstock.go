@@ -14,6 +14,15 @@ var (
 	logArray  []string
 )
 
+const (
+	dirPerm      = 0755
+	dirPath      = "/log"
+	logPath      = "/log/"
+	logExtension = ".log"
+	GOPATH       = "GOPATH"
+)
+
+// Connection to BD.
 func DBConn(opt *pg.Options) (*pg.DB, error) {
 
 	db := pg.Connect(opt)
@@ -28,6 +37,7 @@ func DBConn(opt *pg.Options) (*pg.DB, error) {
 	return db, nil
 }
 
+// Assert query from log file and from DB query hook.
 func CheckLog(t TestingT, logName string) {
 	createDir()
 	readLog(logName)
@@ -39,15 +49,17 @@ func CheckLog(t TestingT, logName string) {
 	}
 }
 
+// Create log dir.
 func createDir() {
-	err := os.Mkdir(os.Getenv("GOPATH")+"/log", 0755)
+	err := os.Mkdir(os.Getenv(GOPATH)+dirPath, dirPerm)
 	if err != nil {
 		return
 	}
 }
 
+// Create log file.
 func createLog(logName string) {
-	file, err := os.Create(os.Getenv("GOPATH") + "/log/" + logName + ".log")
+	file, err := os.Create(os.Getenv(GOPATH) + logPath + logName + logExtension)
 	if err != nil {
 		return
 	}
@@ -58,8 +70,9 @@ func createLog(logName string) {
 	}
 }
 
+// Read log file.
 func readLog(logName string) {
-	bs, err := ioutil.ReadFile(os.Getenv("GOPATH") + "/log/" + logName + ".log")
+	bs, err := ioutil.ReadFile(os.Getenv(GOPATH) + logPath + logName + logExtension)
 	if err != nil && os.IsNotExist(err) {
 		createLog(logName)
 		readLog(logName)

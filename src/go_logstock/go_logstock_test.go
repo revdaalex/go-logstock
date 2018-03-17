@@ -1,8 +1,8 @@
 package go_logstock
 
 import (
-	"testing"
 	"github.com/go-pg/pg"
+	"testing"
 )
 
 const userTableSQL = `
@@ -20,7 +20,7 @@ func TestConnect(t *testing.T) {
 	}
 	Create(db)
 	defer db.Close()
-	CheckLog(t, "test.log")
+	CheckLog(t, "testQuery")
 }
 
 func Create(db *pg.DB) {
