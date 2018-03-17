@@ -13,7 +13,7 @@ value text
 INSERT INTO public.user VALUES (1, 'test')
 `
 
-func TestConnect(t *testing.T) {
+func TestCheckLog(t *testing.T) {
 	db, err := DBConn(pgOptions())
 	if err != nil {
 		panic(err)
