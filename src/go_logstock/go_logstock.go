@@ -47,7 +47,7 @@ func createDir() {
 }
 
 func createLog(logName string) {
-	file, err := os.Create(os.Getenv("GOPATH") + "/log/" + logName)
+	file, err := os.Create(os.Getenv("GOPATH") + "/log/" + logName + ".log")
 	if err != nil {
 		return
 	}
@@ -59,7 +59,7 @@ func createLog(logName string) {
 }
 
 func readLog(logName string) {
-	bs, err := ioutil.ReadFile(os.Getenv("GOPATH") + "/log/" + logName)
+	bs, err := ioutil.ReadFile(os.Getenv("GOPATH") + "/log/" + logName + ".log")
 	if err != nil && os.IsNotExist(err) {
 		createLog(logName)
 		readLog(logName)
