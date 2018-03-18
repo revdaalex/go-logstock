@@ -1,6 +1,6 @@
 # go-logstock
 
-Tool to check duplicate query to PostgreSQL database.
+Tool to check duplicate query to PostgreSQL database based on [go-pg ORM](https://github.com/go-pg/pg).
 
 
 [![Build Status](https://travis-ci.org/revdaalex/go-logstock.svg?branch=master)](https://travis-ci.org/revdaalex/go-logstock)
